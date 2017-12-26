@@ -38,6 +38,7 @@ def _get_escaped_xcode_cxx_inc_directories(repository_ctx, cc, xcode_toolchains)
     repository_ctx: The repository context.
     cc: The default C++ compiler on the local system.
     xcode_toolchains: A list containing the xcode toolchains available
+
   Returns:
     include_paths: A list of builtin include paths.
   """
@@ -52,7 +53,6 @@ def _get_escaped_xcode_cxx_inc_directories(repository_ctx, cc, xcode_toolchains)
 
 def configure_osx_toolchain(repository_ctx, overriden_tools):
   """Configure C++ toolchain on macOS."""
-  xcode_toolchains = []
   (xcode_toolchains, xcodeloc_err) = run_xcode_locator(
       repository_ctx,
       Label("@bazel_tools//tools/osx:xcode_locator.m"))

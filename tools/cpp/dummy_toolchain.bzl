@@ -15,7 +15,7 @@
 
 """Skylark rule that stubs a toolchain."""
 def _dummy_toolchain_impl(ctx):
-  ctx = ctx  # unused argument
+  _ctx = ctx  # unused argument
   toolchain = platform_common.ToolchainInfo()
   return [toolchain]
 

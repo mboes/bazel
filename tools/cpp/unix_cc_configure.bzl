@@ -84,22 +84,23 @@ def _find_tool(repository_ctx, tool, overriden_tools):
 
 def _get_tool_paths(repository_ctx, darwin, cc, overriden_tools):
   """Compute the path to the various tools. Doesn't %-escape the result!"""
-  return {k: _find_tool(repository_ctx, k, overriden_tools)
-          for k in [
-              "ld",
-              "cpp",
-              "dwp",
-              "gcov",
-              "nm",
-              "objcopy",
-              "objdump",
-              "strip",
-          ]} + {
-              "gcc": cc,
-              "ar": "/usr/bin/libtool"
-                    if darwin else which(repository_ctx, "ar", "/usr/bin/ar")
-          }
-
+  paths = {k: _find_tool(repository_ctx, k, overriden_tools)
+           for k in [
+               "ld",
+               "cpp",
+               "dwp",
+               "gcov",
+               "nm",
+               "objcopy",
+               "objdump",
+               "strip",
+           ]}
+  paths.update({
+    "gcc": cc,
+    "ar": "/usr/bin/libtool"
+          if darwin else which(repository_ctx, "ar", "/usr/bin/ar")
+  })
+  return paths
 
 def _escaped_cplus_include_paths(repository_ctx):
   """Use ${CPLUS_INCLUDE_PATH} to compute the %-escaped list of flags for cxxflag."""

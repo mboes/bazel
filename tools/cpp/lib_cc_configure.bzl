@@ -46,6 +46,7 @@ def get_env_var(repository_ctx, name, default = None, enable_warning = True):
       auto_configure_warning("'%s' environment variable is not set, using '%s' as default" % (name, default))
     return default
   auto_configure_fail("'%s' environment variable is not set" % name)
+  return None
 
 
 def which(repository_ctx, cmd, default = None):
